@@ -539,9 +539,10 @@
         <h2>Join the <em>Waitlist</em></h2>
         <p>The Hope Club opens in limited spaces so each monthly mailing can be prepared thoughtfully. When membership is full, enter your email below to be the first to know when new spots become available.</p>
       </div>
-      <form class="waitlist-form" onsubmit="return false">
-        <input type="email" class="portal-input" placeholder="you@email.com" aria-label="Email address">
-        <a class="btn" href="#">Join the Waitlist</a>
+      <form class="waitlist-form" action="https://formspree.io/f/xaqrlnep" method="POST">
+        <input type="email" name="email" class="portal-input" placeholder="you@email.com" aria-label="Email address" required>
+        <input type="hidden" name="_subject" value="New Hope Club waitlist signup">
+        <button type="submit" class="btn" style="cursor:pointer">Join the Waitlist</button>
       </form>
     </div>
   </section>
