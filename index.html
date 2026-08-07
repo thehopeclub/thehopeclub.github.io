@@ -491,7 +491,7 @@
   .foot-contact{text-decoration:none}
   .foot a:hover{color:var(--ink)}
   /* ---------------- words of hope · reviews ---------------- */
-  .reviews{padding:clamp(3.4rem,8vw,6rem) 0;border-top:1px solid var(--line-soft)}
+  .reviews{padding:clamp(3.4rem,8vw,6rem) 0}
   .reviews .sec-head{text-align:center;max-width:46ch;margin:0 auto clamp(2rem,4vw,3rem)}
   .reviews .sec-head h2{font-size:clamp(2rem,4.6vw,3rem);line-height:1.1}
   .reviews .sec-head h2 em{font-style:italic;color:var(--gold)}
@@ -524,7 +524,7 @@
   .rf-msg.ok{color:#2c6e49}
   .rf-msg.err{color:#8a1f1f}
   .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .admin-bar{text-align:center;margin-top:1.5rem}
+  .admin-bar{display:none;text-align:center;margin-top:1.5rem}
   .admin-link{background:none;border:none;color:var(--ink-faint);font-family:var(--font-type);font-size:.72rem;letter-spacing:.1em;text-decoration:underline;cursor:pointer}
   .admin-box{max-width:340px;margin:1rem auto 0;display:none;background:var(--card-face);border:1px solid var(--line);border-radius:3px;padding:1.1rem;text-align:left}
   .admin-box.show{display:block}
@@ -563,13 +563,20 @@
 
   <!-- PSALM 34:18 — the one area -->
 
+  <section class="ink-section torn-cream final">
+    <div class="wrap reveal">
+      <p class="eyebrow" style="margin-bottom:1.4rem">Psalm 34:18</p>
+      <h2>&ldquo;The Lord is close to the <em>brokenhearted</em> and saves those who are crushed in spirit.&rdquo;</h2>
+      <div style="margin-top:2rem"><a class="btn" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join The Hope Club</a></div>
+    </div>
+  </section>
+
   <!-- WORDS OF HOPE · live reviews -->
   <section class="reviews" id="reviews">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="eyebrow">Words of Hope</p>
         <h2>From <em>our</em> members</h2>
-        <p>Real words from people walking through grief, held together by hope. If The Hope Club has touched you, I would be honored if you shared your story below. &#128156;</p>
       </div>
 
       <div class="review-list" id="reviewList">
@@ -605,7 +612,7 @@
           <div class="rf-msg" id="rfMsgOut" role="status"></div>
         </form>
 
-        <div class="admin-bar">
+        <div class="admin-bar" id="adminBar">
           <button type="button" class="admin-link" id="adminToggle">Founder sign-in</button>
           <div class="admin-box" id="adminBox">
             <div class="rf-field">
@@ -624,14 +631,6 @@
           <div id="adminStatus"></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="ink-section torn-cream final">
-    <div class="wrap reveal">
-      <p class="eyebrow" style="margin-bottom:1.4rem">Psalm 34:18</p>
-      <h2>&ldquo;The Lord is close to the <em>brokenhearted</em> and saves those who are crushed in spirit.&rdquo;</h2>
-      <div style="margin-top:2rem"><a class="btn" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join The Hope Club</a></div>
     </div>
   </section>
 
@@ -950,8 +949,15 @@
   const admSignIn = document.getElementById('admSignIn');
   const admMsg = document.getElementById('admMsg');
   const adminStatus = document.getElementById('adminStatus');
+  const adminBar = document.getElementById('adminBar');
 
   let currentUid = null, isAdmin = false, reviews = [], rating = 0;
+
+  function updateAdminVisibility(){
+    adminBar.style.display = (isAdmin || location.hash === '#founder') ? 'block' : 'none';
+  }
+  window.addEventListener('hashchange', updateAdminVisibility);
+  updateAdminVisibility();
 
   const starBtns = Array.from(starsWrap.querySelectorAll('button'));
   function paintStars(v){ starBtns.forEach(b => b.classList.toggle('on', Number(b.dataset.v) <= v)); }
@@ -1048,6 +1054,7 @@
     }
   });
   function renderAdmin(){
+    updateAdminVisibility();
     if(isAdmin){
       adminToggle.textContent='Sign out (admin)';
       adminStatus.innerHTML='<span class="admin-badge">✓ Signed in as founder — you can delete any review</span>';
