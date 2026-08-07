@@ -293,6 +293,15 @@
 
   /* burgundy "ink" section — warm & candlelit, never funereal.
      Tokens flip so shared components adapt to the dark ground. */
+  /* matching torn cream edge on the BOTTOM of a dark section */
+  .torn-b-cream::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:22px;z-index:3;
+    pointer-events:none;background-position:center bottom;background-size:100% 100%;background-repeat:no-repeat;
+    transform:scaleY(-1);
+    filter:drop-shadow(0 1px 1px rgba(74,23,27,.08));
+    background-image:url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201200%2026'%20preserveAspectRatio='none'><path%20d='M0,0L1200,0L1200,13C1150,21,1100,21,1050,13C1000,5,950,5,900,13C850,21,800,21,750,13C700,5,650,5,600,13C550,21,500,21,450,13C400,5,350,5,300,13C250,21,200,21,150,13C100,5,50,5,0,13Z'%20fill='%23FBF9F3'/></svg>");
+  }
+
   .ink-section{
     background:radial-gradient(135% 130% at 50% -12%, #1C1714 0%, #120F0D 55%, #080706 100%);
     color:var(--paper);
@@ -563,7 +572,7 @@
 
   <!-- PSALM 34:18 — the one area -->
 
-  <section class="ink-section torn-cream final">
+  <section class="ink-section torn-cream torn-b-cream final">
     <div class="wrap reveal">
       <p class="eyebrow" style="margin-bottom:1.4rem">Psalm 34:18</p>
       <h2>&ldquo;The Lord is close to the <em>brokenhearted</em> and saves those who are crushed in spirit.&rdquo;</h2>
