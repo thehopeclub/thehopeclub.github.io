@@ -517,7 +517,7 @@
   .review-card .r-del:hover{color:#8a1f1f;background:rgba(138,31,31,.08)}
   .reviews-empty{grid-column:1/-1;text-align:center;color:var(--ink-faint);font-style:italic;padding:1.4rem 0}
 
-  .review-form-wrap{max-width:560px;margin:0 auto;background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:clamp(1.4rem,4vw,2rem)}
+  .review-form-wrap{display:none;max-width:560px;margin:0 auto;background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:clamp(1.4rem,4vw,2rem)}
   .review-form-wrap .rf-title{text-align:center;font-family:var(--font-display);font-size:1.2rem;margin-bottom:.3rem}
   .review-form-wrap .rf-sub{text-align:center;color:var(--ink-soft);font-size:.85rem;margin-bottom:1.4rem;font-family:var(--font-body)}
   .rf-field{margin-bottom:1rem}
@@ -592,7 +592,7 @@
         <p class="reviews-empty" id="reviewsEmpty" style="display:none"></p>
       </div>
 
-      <div class="review-form-wrap">
+      <div class="review-form-wrap" id="reviewFormWrap">
         <div class="rf-title">Share your story</div>
         <div class="rf-sub">Your words may be the comfort someone else needs today.</div>
         <form id="reviewForm" autocomplete="off">
@@ -959,14 +959,18 @@
   const admMsg = document.getElementById('admMsg');
   const adminStatus = document.getElementById('adminStatus');
   const adminBar = document.getElementById('adminBar');
+  const formWrap = document.getElementById('reviewFormWrap');
 
   let currentUid = null, isAdmin = false, reviews = [], rating = 0;
 
-  function updateAdminVisibility(){
-    adminBar.style.display = (isAdmin || location.hash === '#founder') ? 'block' : 'none';
+  function updateVisibility(){
+    var h = location.hash;
+    formWrap.style.display = (h === '#share' || h === '#founder') ? 'block' : 'none';
+    adminBar.style.display = (isAdmin || h === '#founder') ? 'block' : 'none';
+    if(h === '#share'){ try { formWrap.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e){} }
   }
-  window.addEventListener('hashchange', updateAdminVisibility);
-  updateAdminVisibility();
+  window.addEventListener('hashchange', updateVisibility);
+  updateVisibility();
 
   const starBtns = Array.from(starsWrap.querySelectorAll('button'));
   function paintStars(v){ starBtns.forEach(b => b.classList.toggle('on', Number(b.dataset.v) <= v)); }
@@ -1063,7 +1067,7 @@
     }
   });
   function renderAdmin(){
-    updateAdminVisibility();
+    updateVisibility();
     if(isAdmin){
       adminToggle.textContent='Sign out (admin)';
       adminStatus.innerHTML='<span class="admin-badge">✓ Signed in as founder — you can delete any review</span>';
