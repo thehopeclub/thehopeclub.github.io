@@ -538,6 +538,23 @@
   .admin-box{max-width:340px;margin:1rem auto 0;display:none;background:var(--card-face);border:1px solid var(--line);border-radius:3px;padding:1.1rem;text-align:left}
   .admin-box.show{display:block}
   .admin-badge{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#2c6e49;margin-top:.6rem}
+
+  /* ---------------- scripture welcome popup ---------------- */
+  .verse-pop{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;padding:22px}
+  .verse-pop[hidden]{display:none}
+  .verse-pop-backdrop{position:absolute;inset:0;background:rgba(8,7,6,.62);backdrop-filter:blur(2px)}
+  .verse-pop-box{position:relative;max-width:460px;width:100%;
+    background:radial-gradient(135% 130% at 50% -12%, #1C1714 0%, #120F0D 55%, #080706 100%);
+    color:#F4EFE2;border:1px solid rgba(244,239,226,.16);border-radius:4px;
+    padding:clamp(2rem,5vw,2.9rem);text-align:center;font-family:var(--font-type);
+    box-shadow:0 34px 80px -22px rgba(0,0,0,.75);animation:versePopIn .4s ease both}
+  @keyframes versePopIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+  .verse-pop-close{position:absolute;top:.5rem;right:.65rem;background:none;border:none;
+    color:rgba(244,239,226,.55);font-size:1.65rem;line-height:1;cursor:pointer;padding:.1rem .45rem;border-radius:4px}
+  .verse-pop-close:hover{color:#F4EFE2}
+  .verse-pop-eyebrow{font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:#A99F8E;margin:0 0 1.2rem}
+  .verse-pop-text{font-size:clamp(1.1rem,2.7vw,1.4rem);line-height:1.55;margin:0 0 1.2rem;font-style:italic;color:#F4EFE2}
+  .verse-pop-ref{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#DDD4C4;margin:0}
 </style>
 
 <header>
@@ -867,6 +884,48 @@
     <a class="foot-contact" href="mailto:thehopeclubmail@gmail.com?subject=The%20Hope%20Club">Contact</a>
   </div>
 </footer>
+
+<!-- Scripture welcome popup -->
+<div class="verse-pop" id="versePop" hidden>
+  <div class="verse-pop-backdrop" data-verse-close></div>
+  <div class="verse-pop-box" role="dialog" aria-modal="true" aria-label="A verse for you">
+    <button class="verse-pop-close" type="button" aria-label="Close" data-verse-close>&times;</button>
+    <p class="verse-pop-eyebrow">A verse for you</p>
+    <p class="verse-pop-text" id="versePopText"></p>
+    <p class="verse-pop-ref" id="versePopRef"></p>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var verses = [
+      {t:"The Lord is close to the brokenhearted and saves those who are crushed in spirit.", r:"Psalm 34:18"},
+      {t:"Come to me, all you who are weary and burdened, and I will give you rest.", r:"Matthew 11:28"},
+      {t:"He heals the brokenhearted and binds up their wounds.", r:"Psalm 147:3"},
+      {t:"Do not fear, for I am with you; do not be dismayed, for I am your God.", r:"Isaiah 41:10"},
+      {t:"He will wipe every tear from their eyes, and there will be no more death or mourning or crying or pain.", r:"Revelation 21:4"},
+      {t:"Even though I walk through the darkest valley, I will fear no evil, for you are with me.", r:"Psalm 23:4"},
+      {t:"Blessed are those who mourn, for they will be comforted.", r:"Matthew 5:4"},
+      {t:"Weeping may stay for the night, but rejoicing comes in the morning.", r:"Psalm 30:5"},
+      {t:"God is our refuge and strength, an ever-present help in trouble.", r:"Psalm 46:1"},
+      {t:"Peace I leave with you; my peace I give you. Do not let your hearts be troubled.", r:"John 14:27"},
+      {t:"Cast all your anxiety on him because he cares for you.", r:"1 Peter 5:7"},
+      {t:"Those who hope in the Lord will renew their strength. They will soar on wings like eagles.", r:"Isaiah 40:31"},
+      {t:"My flesh and my heart may fail, but God is the strength of my heart and my portion forever.", r:"Psalm 73:26"},
+      {t:"Be strong and courageous. Do not be afraid; the Lord your God will be with you wherever you go.", r:"Joshua 1:9"}
+    ];
+    var pop = document.getElementById('versePop');
+    if(!pop) return;
+    var v = verses[Math.floor(Math.random() * verses.length)];
+    document.getElementById('versePopText').textContent = '“' + v.t + '”';
+    document.getElementById('versePopRef').textContent = v.r;
+    pop.hidden = false;
+    document.body.style.overflow = 'hidden';
+    function closePop(){ pop.hidden = true; document.body.style.overflow = ''; }
+    pop.querySelectorAll('[data-verse-close]').forEach(function(el){ el.addEventListener('click', closePop); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !pop.hidden) closePop(); });
+  })();
+</script>
 
 <script>
   (function(){
