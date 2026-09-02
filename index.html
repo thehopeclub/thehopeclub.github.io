@@ -164,11 +164,18 @@
     margin-bottom:1.6rem;
   }
   .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero .hero-title{
+    font-family:var(--font-display);
+    font-size:clamp(1.9rem,3.9vw,2.9rem);
+    line-height:1.16;letter-spacing:-.01em;
+    color:var(--ink);margin:0 0 1.15rem;text-wrap:balance;
+  }
+  .hero .hero-title em{font-style:italic;color:var(--gold)}
   .hero-statement{
     font-family:var(--font-type);
-    font-size:clamp(1.18rem,2vw,1.6rem);
-    line-height:1.6;letter-spacing:-.005em;
-    color:var(--ink);max-width:44ch;margin-bottom:2rem;
+    font-size:clamp(1.02rem,1.5vw,1.22rem);
+    line-height:1.65;letter-spacing:-.005em;
+    color:var(--ink-soft);max-width:46ch;margin-bottom:2rem;
   }
   .hero-statement em{font-style:italic;color:var(--gold)}
   .lead-letter{
@@ -584,7 +591,8 @@
   <!-- HERO — emotional first -->
   <section class="hero wrap">
     <div class="hero-copy reveal">
-      <p class="hero-statement">The Hope Club is a monthly faith-based mail club created to bring <em>hope and encouragement</em> right to your mailbox. Each month, you'll receive a personal letter and an audio prayer from me.</p>
+      <h1 class="hero-title">Take five minutes a month and be reminded that <em>God is still in this with you.</em></h1>
+      <p class="hero-statement">For grief, waiting, starting over, and the hard seasons in between — a personal letter and prayer each month to encourage you, strengthen your faith, and help you keep going.</p>
       <div class="cta-row">
         <a class="btn" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join The Hope Club</a>
       </div>
