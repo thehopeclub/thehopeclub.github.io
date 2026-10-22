@@ -463,6 +463,19 @@
   .policy-group h3{font-size:1.2rem;color:var(--ink)}
   .policy-body p{color:var(--ink-soft);font-family:var(--font-body);font-size:1rem;line-height:1.7}
   .policy-contact{margin-top:.4rem}
+  /* FAQ accordion */
+  .modal-box .policy-body.faq-list{gap:0}
+  .faq-item{border-bottom:1px solid var(--line-soft)}
+  .faq-item:first-child{border-top:1px solid var(--line-soft)}
+  .faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    padding:1.05rem 0;font-weight:700;font-size:1.1rem;color:var(--ink)}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"+";font-family:var(--font-type);font-weight:400;font-size:1.3rem;color:var(--gold);flex-shrink:0}
+  .faq-item[open] summary::after{content:"−"}
+  .faq-item:not([open]) .faq-answer{display:none}
+  .faq-item summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .faq-answer{display:flex;flex-direction:column;gap:.75rem;padding:0 0 1.2rem}
+  .faq-answer a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
   .policy-contact a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
 
   /* shipping & policies pop-up */
@@ -583,7 +596,7 @@
       <a href="#" data-modal="modal-portal">Portal</a>
       <a href="#" data-modal="modal-shop">Archive</a>
     </div>
-    <a class="btn small" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join · $9</a>
+    <a class="btn small" href="https://checkout.thehopeclubmail.com/b/7sY4gB1EfeX84oz1P657W03" target="_blank" rel="noopener">Join · $9</a>
   </nav>
 </header>
 
@@ -595,7 +608,7 @@
       <h1 class="hero-title">Take five minutes a month and be reminded that <em>God is still in this with you.</em></h1>
       <p class="hero-statement">For grief, waiting, starting over, and the hard seasons in between. A personal letter, a scripture card, and two collectible pins each month to encourage you, strengthen your faith, and help you keep going.</p>
       <div class="cta-row">
-        <a class="btn" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join The Hope Club</a>
+        <a class="btn" href="https://checkout.thehopeclubmail.com/b/7sY4gB1EfeX84oz1P657W03" target="_blank" rel="noopener">Join The Hope Club</a>
       </div>
       <p class="price-note">$16 a month · cancel anytime</p>
     </div>
@@ -617,7 +630,7 @@
     <div class="wrap reveal">
       <p class="eyebrow" style="margin-bottom:1.4rem">Jeremiah 29:11</p>
       <h2>&ldquo;For I know the plans I have for you&hellip; plans to give you <em>hope and a future</em>.&rdquo;</h2>
-      <div style="margin-top:2rem"><a class="btn" href="https://buy.stripe.com/8x200l82D16idZ9ctK57W02" target="_blank" rel="noopener">Join The Hope Club</a></div>
+      <div style="margin-top:2rem"><a class="btn" href="https://checkout.thehopeclubmail.com/b/7sY4gB1EfeX84oz1P657W03" target="_blank" rel="noopener">Join The Hope Club</a></div>
     </div>
   </section>
 
@@ -788,58 +801,116 @@
       <p class="eyebrow">Good to know</p>
       <h2>Frequently Asked <em>Questions</em></h2>
     </div>
-    <div class="policy-body">
-      <div class="policy-group">
-        <h3>How can I contact The Hope Club?</h3>
-        <p>For questions about your membership, mailing address, or monthly envelope, email <a href="mailto:thehopeclubmail@gmail.com?subject=The%20Hope%20Club">thehopeclubmail@gmail.com</a>.</p>
-      </div>
-      <div class="policy-group">
-        <h3>What does membership cost?</h3>
-        <p>The Hope Club is $16 per month, with U.S. shipping included. Each month, members receive one personal letter, one scripture card, one large collectible pin, and one small collectible pin, centered on grief, life after loss, and how Jesus is carrying me through it.</p>
-      </div>
-      <div class="policy-group">
-        <h3>What comes in each mailing?</h3>
-        <p>Every month, you'll receive a personal letter from me where I share my honest thoughts about life, faith, and the different seasons we all go through. Along with the letter, you'll receive a monthly scripture card, one large collectible pin, and one small collectible pin.</p>
-        <p>Every now and then, I might tuck in a little surprise, but the letter will always be the heart of The Hope Club.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Who is The Hope Club for?</h3>
-        <p>The Hope Club was created for anyone walking through different seasons of life. Whether you're dealing with heartbreak, change, loneliness, or simply figuring life out, there's a place for you here.</p>
-        <p>Maybe you just want something nice to look forward to in your mailbox, enjoy hearing someone else's thoughts on life, or need a little hope on those days when you're stuck in your own head. Let's face it, most of us are overthinkers!</p>
-        <p>Whatever brings you here, my hope is that these letters bring you encouragement, strengthen your faith, and remind you that you're not alone.</p>
-      </div>
-      <div class="policy-group">
-        <h3>When will my envelope be mailed?</h3>
-        <p>Join by the last day of the month at 11:59 PM Eastern Time to receive the following month's mailing. Envelopes are prepared and sent during the first week of each month.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Is tracking included?</h3>
-        <p>No. Hope Club envelopes are sent through USPS as stamped letter mail, so tracking is not included. Please allow enough time for USPS delivery, especially during holidays or periods of postal delay.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Is shipping included?</h3>
-        <p>Yes. Standard shipping is included for members within the United States. At launch, The Hope Club will ship only within the United States.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Will my subscription renew automatically?</h3>
-        <p>Yes. After joining, your membership will renew automatically each month until you cancel. Your renewal date will be shown during checkout and inside your customer account.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Can I cancel my membership?</h3>
-        <p>Yes. You may cancel before your next renewal date to avoid being charged for the following month's mailing. Once a monthly order has renewed and preparation has begun, that order cannot be canceled or refunded.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Can I update my address or payment information?</h3>
-        <p>Yes. You can update your mailing address and payment information through your customer account. Please make any address changes before the monthly cutoff so your envelope is sent to the correct place.</p>
-      </div>
-      <div class="policy-group">
-        <h3>What happens if I enter the wrong address?</h3>
-        <p>Please double-check your address before completing checkout. If your envelope is returned because the address was incorrect or incomplete, you will be responsible for the additional postage needed to mail it again.</p>
-      </div>
-      <div class="policy-group">
-        <h3>Do you accept returns or offer refunds?</h3>
-        <p>Because each month's mailing is prepared specifically for active members, all sales are final. If your envelope arrives damaged or there is a problem with your order, please contact me and I'll do my best to help.</p>
-      </div>
+    <div class="policy-body faq-list">
+      <details class="faq-item">
+        <summary>How can I contact The Hope Club?</summary>
+        <div class="faq-answer">
+          <p>For questions about your membership, mailing address, or monthly mailers, email <a href="mailto:thehopeclubmail@gmail.com?subject=The%20Hope%20Club">thehopeclubmail@gmail.com</a>.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What does membership cost?</summary>
+        <div class="faq-answer">
+          <p>The Hope Club is $16 per month, with U.S. shipping included. Each month, members receive one personal letter, one scripture card, one large collectible pin, and one small collectible pin, created to bring hope, encouragement, and faith into everyday life.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What comes in each monthly mailer?</summary>
+        <div class="faq-answer">
+          <p>Every month, you'll receive a personal letter from me where I share my honest thoughts about life, faith, and the different seasons we all go through. Along with the letter, you'll receive a monthly scripture card, one large collectible pin, and one small collectible pin.</p>
+          <p>Every now and then, I might tuck in a little surprise, but the letter will always be the heart of The Hope Club.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Who is The Hope Club for?</summary>
+        <div class="faq-answer">
+          <p>The Hope Club was created for anyone walking through different seasons of life. Whether you're dealing with heartbreak, change, loneliness, or simply figuring life out, there's a place for you here.</p>
+          <p>Maybe you just want something nice to look forward to in your mailbox, enjoy hearing someone else's thoughts on life, or need a little hope on those days when you're stuck in your own head. Let's face it, most of us are overthinkers!</p>
+          <p>Whatever brings you here, my hope is that these letters bring you encouragement, strengthen your faith, and remind you that you're not alone.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>When will my first monthly mailer be sent?</summary>
+        <div class="faq-answer">
+          <p>The cutoff to subscribe is the 21st of each month at 11:59 PM Eastern Time to receive the following month's mailer.</p>
+          <p>For example, if you subscribe by October 21, you'll receive November's mailer. If you subscribe after October 21, your first regular monthly mailer will be December's.</p>
+          <p>Regular monthly mailers are prepared and sent during the first week of each month.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if I subscribe after the cutoff?</summary>
+        <div class="faq-answer">
+          <p>If you subscribe after the 21st, your first regular monthly mailer will be for the month after next.</p>
+          <p>However, I don't want you waiting weeks without receiving anything. I'll send you a welcome mailer within two weeks of joining, so you'll have something to look forward to while you wait.</p>
+          <p>Your welcome mailer will include a personal welcome letter and a few little extras to introduce you to The Hope Club.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Does everyone receive a welcome letter?</summary>
+        <div class="faq-answer">
+          <p>Yes. Every new member receives a welcome letter.</p>
+          <p>If you subscribe by the monthly cutoff, your welcome letter will be included with your first regular monthly mailer.</p>
+          <p>If you subscribe after the cutoff, you'll receive a separate welcome mailer within two weeks of joining.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>When will my monthly mailer be sent?</summary>
+        <div class="faq-answer">
+          <p>Regular Hope Club mailers are prepared and sent during the first week of each month.</p>
+          <p>Welcome mailers for new members who missed the cutoff are prepared and mailed once a week.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Is tracking included?</summary>
+        <div class="faq-answer">
+          <p>Yes. All regular monthly Hope Club mailers include USPS tracking, so you can follow your mail once it's on its way.</p>
+          <p>Welcome letters sent separately are mailed through regular USPS First-Class Mail and do not include tracking.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Is shipping included?</summary>
+        <div class="faq-answer">
+          <p>Yes. U.S. shipping is included in your $16 monthly membership, with no additional shipping fees.</p>
+          <p>At launch, The Hope Club will ship only within the United States.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Will my subscription renew automatically?</summary>
+        <div class="faq-answer">
+          <p>Yes. Your membership begins when you subscribe, and your first payment is collected at checkout. Your subscription will then renew automatically each month on the same date until you cancel.</p>
+          <p>If you subscribe after the monthly cutoff, you may receive your welcome mailer before your first regular monthly mailer arrives. Your subscription will continue renewing according to your billing date.</p>
+          <p>Your renewal date will be shown during checkout and inside your customer account.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I cancel my membership?</summary>
+        <div class="faq-answer">
+          <p>Yes. You may cancel your membership before your next renewal date to avoid future charges.</p>
+          <p>Once a monthly order has renewed and preparation has begun, that order cannot be canceled or refunded.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I update my address or payment information?</summary>
+        <div class="faq-answer">
+          <p>Yes. You can update your mailing address and payment information through your customer account.</p>
+          <p>Please make any address changes before the monthly cutoff on the 21st so your mailer is sent to the correct address.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What happens if I enter the wrong address?</summary>
+        <div class="faq-answer">
+          <p>Please double-check your mailing address before completing checkout.</p>
+          <p>If you notice a mistake, contact me as soon as possible. If your mailer has not been sent, I'll do my best to update the address.</p>
+          <p>If your mailer is returned because the address was incorrect or incomplete, you will be responsible for the additional postage needed to send it again.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you accept returns or offer refunds?</summary>
+        <div class="faq-answer">
+          <p>Because each month's mailer is prepared specifically for active members, all sales are final.</p>
+          <p>If your mailer arrives damaged, something is missing, or there's a problem with your order, please contact me at <a href="mailto:thehopeclubmail@gmail.com?subject=The%20Hope%20Club">thehopeclubmail@gmail.com</a> and I'll do my best to help.</p>
+        </div>
+      </details>
     </div>
   </div>
 </div>
