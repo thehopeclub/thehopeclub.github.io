@@ -579,9 +579,9 @@
   .newsletter h2 em{font-style:italic;color:var(--gold)}
   .nl-sub{color:var(--ink-soft);font-family:var(--font-body);max-width:46ch;margin:0 auto 1.9rem;line-height:1.6}
   .nl-form{display:flex;gap:.7rem;max-width:430px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-  .nl-input{flex:1 1 220px;min-width:0;font-family:var(--font-body);font-size:.95rem;color:var(--ink);background:var(--card-face);border:1px solid var(--line);border-radius:2px;padding:.85rem .95rem}
+  .nl-input{flex:1 1 180px;min-width:0;font-family:var(--font-body);font-size:.95rem;color:var(--ink);background:var(--card-face);border:1px solid var(--line);border-radius:2px;padding:.85rem .95rem}
   .nl-input:focus{outline:none;border-color:var(--ink)}
-  .nl-form .btn{flex:0 0 auto}
+  .nl-form .btn{flex:1 1 100%}
   .nl-msg{min-height:1.2em;margin-top:1rem;font-family:var(--font-body);font-size:.86rem;color:var(--ink-soft)}
   .nl-msg.ok{color:#2c6e49}
   .nl-msg.err{color:#8a1f1f}
@@ -988,7 +988,8 @@
     <h2>Join <em>The Hope Club Times</em> newsletter</h2>
     <p class="nl-sub">A little hope in your inbox now and then. Gentle encouragement, new letters, and updates from The Hope Club. No spam, ever.</p>
     <form class="nl-form" id="newsletterForm" autocomplete="off">
-      <input type="email" id="nlEmail" class="nl-input" placeholder="you@email.com" aria-label="Email address" required>
+      <input type="text" id="nlName" class="nl-input" placeholder="First name" aria-label="First name" maxlength="60" autocomplete="given-name" required>
+      <input type="email" id="nlEmail" class="nl-input" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
       <button type="submit" class="btn" id="nlBtn">Subscribe</button>
     </form>
     <p class="nl-msg" id="nlMsg" role="status"></p>
@@ -1021,6 +1022,7 @@
   const app = getApps().length ? getApp() : initializeApp(cfg);
   const db = getFirestore(app);
   const form = document.getElementById('newsletterForm');
+  const name = document.getElementById('nlName');
   const email = document.getElementById('nlEmail');
   const out = document.getElementById('nlMsg');
   const btn = document.getElementById('nlBtn');
@@ -1028,11 +1030,20 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       out.textContent=''; out.className='nl-msg';
+      const n = (name.value || '').trim();
       const v = (email.value || '').trim();
+      if(!n){ out.textContent='Please enter your first name.'; out.className='nl-msg err'; return; }
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ out.textContent='Please enter a valid email.'; out.className='nl-msg err'; return; }
       btn.disabled = true; const label = btn.textContent; btn.textContent = 'Joining…';
       try {
-        await addDoc(collection(db,'newsletter'), { email: v.slice(0,200), createdAt: serverTimestamp() });
+        try {
+          await addDoc(collection(db,'newsletter'), { firstName: n.slice(0,60), email: v.slice(0,200), createdAt: serverTimestamp() });
+        } catch(err){
+          // older Firestore rules only allow {email, createdAt}; still save the signup
+          if(err && err.code === 'permission-denied'){
+            await addDoc(collection(db,'newsletter'), { email: v.slice(0,200), createdAt: serverTimestamp() });
+          } else { throw err; }
+        }
         form.reset();
         out.textContent = 'You’re in — thank you for joining! 💛'; out.className='nl-msg ok';
       } catch(err){ console.error(err); out.textContent='Something went wrong. Please try again.'; out.className='nl-msg err'; }
