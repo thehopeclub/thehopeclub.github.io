@@ -990,6 +990,7 @@
     <form class="nl-form" id="newsletterForm" autocomplete="off">
       <input type="text" id="nlName" class="nl-input" placeholder="First name" aria-label="First name" maxlength="60" autocomplete="given-name" required>
       <input type="email" id="nlEmail" class="nl-input" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required>
+      <input class="hp-field" type="text" id="nlCompany" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" class="btn" id="nlBtn">Subscribe</button>
     </form>
     <p class="nl-msg" id="nlMsg" role="status"></p>
@@ -1026,6 +1027,29 @@
   const email = document.getElementById('nlEmail');
   const out = document.getElementById('nlMsg');
   const btn = document.getElementById('nlBtn');
+  const hp = document.getElementById('nlCompany');
+  // The newsletter is sent from The Hope Club's LeadStack workspace, so every signup goes there too.
+  // Where it came from rides along: a Times QR code can carry ?utm_source=times&utm_campaign=<place>.
+  const LEADSTACK_FORM = 'https://go.draftclicks.com/api/forms/onQEuK2lHY8v9sAO1QUS/submit';
+  async function sendToLeadStack(n, v){
+    const q = new URLSearchParams(location.search);
+    const attribution = { landingPage: location.href, referrer: document.referrer || null };
+    [['utm_source','utmSource'],['utm_medium','utmMedium'],['utm_campaign','utmCampaign'],['utm_content','utmContent'],['utm_term','utmTerm']]
+      .forEach(([k, key]) => { if(q.get(k)) attribution[key] = q.get(k); });
+    const r = await fetch(LEADSTACK_FORM, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ values:{ name:n.slice(0,60), email:v.slice(0,200) }, attribution }) });
+    if(!r.ok) throw new Error('LeadStack ' + r.status);
+  }
+  async function saveToFirestore(n, v){
+    try {
+      await addDoc(collection(db,'newsletter'), { firstName: n.slice(0,60), email: v.slice(0,200), createdAt: serverTimestamp() });
+    } catch(err){
+      // older Firestore rules only allow {email, createdAt}; still save the signup
+      if(err && err.code === 'permission-denied'){
+        await addDoc(collection(db,'newsletter'), { email: v.slice(0,200), createdAt: serverTimestamp() });
+      } else { throw err; }
+    }
+  }
   if(form){
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1034,16 +1058,14 @@
       const v = (email.value || '').trim();
       if(!n){ out.textContent='Please enter your first name.'; out.className='nl-msg err'; return; }
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ out.textContent='Please enter a valid email.'; out.className='nl-msg err'; return; }
+      // Real people never see the hidden field; a filled one is a bot, so pretend it worked and save nothing.
+      if(hp && hp.value){ form.reset(); out.textContent = 'You’re in — thank you for joining! 💛'; out.className='nl-msg ok'; return; }
       btn.disabled = true; const label = btn.textContent; btn.textContent = 'Joining…';
       try {
-        try {
-          await addDoc(collection(db,'newsletter'), { firstName: n.slice(0,60), email: v.slice(0,200), createdAt: serverTimestamp() });
-        } catch(err){
-          // older Firestore rules only allow {email, createdAt}; still save the signup
-          if(err && err.code === 'permission-denied'){
-            await addDoc(collection(db,'newsletter'), { email: v.slice(0,200), createdAt: serverTimestamp() });
-          } else { throw err; }
-        }
+        const [fs, ls] = await Promise.allSettled([saveToFirestore(n, v), sendToLeadStack(n, v)]);
+        if(fs.status === 'rejected' && ls.status === 'rejected') throw ls.reason;
+        if(fs.status === 'rejected') console.error(fs.reason);
+        if(ls.status === 'rejected') console.error(ls.reason);
         form.reset();
         out.textContent = 'You’re in — thank you for joining! 💛'; out.className='nl-msg ok';
       } catch(err){ console.error(err); out.textContent='Something went wrong. Please try again.'; out.className='nl-msg err'; }
